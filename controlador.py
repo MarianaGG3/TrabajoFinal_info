@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QApplication
 
 def main():
     app = QApplication(sys.argv)
-    vista_=VentanaIngreso()
+    vista_= VentanaPrincipal()
     vista_.show()
     sys.exit(app.exec_())
 
