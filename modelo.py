@@ -2,7 +2,11 @@ from PyQt5.QtWidgets import QApplication,QMainWindow, QDialog,QMessageBox
 from PyQt5.QtGui import QDoubleValidator, QRegExpValidator,QIntValidator
 from PyQt5.QtCore import Qt,QRegExp
 from PyQt5.uic import loadUi
-
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+import pydicom
+import matplotlib.pyplot as plt
 
 
 class Imagen:
@@ -23,6 +27,21 @@ class Imagen:
     def verUsuario(self):
         return self.__usuario
 
+    def ConteoPart(self):
+        nombre_imagen=input("ingrese el nombre de la imagen a realizar el conteo:")
+        ima= cv2.imread(nombre_imagen)
+        ima=cv2.cvtColor(ima, cv2.COLOR_BGR2RGB)
+        imgB=ima[:,:,2]
+
+        Umb,img=cv2.threshold(imgB ,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+        R=cv2.medianBlur(img, 5)
+
+        kernel= np.ones((15,15),np.uint8)
+        imaOp=cv2.morphologyEx(R, cv2.MORPH_CLOSE, kernel, iterations = 1)
+
+        elem,mask=cv2.connectedComponents(imaOp)
+        print(f'El número de nanoparticulas que se encuentran en la imagen es de:{elem-1}')
+
 class Paciente:
     def __init__(self):
         self.__nombre="" 
@@ -34,11 +53,11 @@ class Paciente:
 
     def AsignarCedula(self,c):
         self.__cedula=c 
-    #metodo para verificar medicamentos
+    
     def TieneImagenes(self,nombre):
         return nombre.lower() in self.__imagenes 
   
-    #metodo para asignar un solo medicamento
+    
     def AsignarImagenes(self,i):
         self.__imagenes[i.VerNombre().lower()] = i
 
