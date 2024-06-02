@@ -13,7 +13,6 @@ class VentanaPrincipal(QMainWindow):
         self.setup()
         pac= Paciente()
 
-
     def setup(self):
         pac= Paciente()
         self.agg=Agregar_pac()
@@ -22,6 +21,19 @@ class VentanaPrincipal(QMainWindow):
         self.ingresar_imagen.clicked.connect(pac.AsignarImagenes)
         self.conteo.clicked.connect(self.conteo)
         self.salir.clicked.connect(self.close)
+
+
+#No se ha creado
+class ConteoPart(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        loadUi('conteo.ui',self)
+        self.setup()
+
+    def setup(self):
+        pass
+
+
 class Agregar_pac(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
