@@ -10,16 +10,31 @@ class VentanaPrincipal(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         loadUi('interfaz_menu.ui',self)
+        self.setup()
+        pac= Paciente()
 
-        self.ingresar_pac.clicked.connect(self.AgregarPac)
-        self.ingresar_imagen.clicked.connect(self.AsignarImagenes)
-        self.conteo.clicked.connect(self.ConteoPart)
+
+    def setup(self):
+        pac= Paciente()
+        self.agg=Agregar_pac()
+        self.ingresar_pac.clicked.connect(self.agg.show)
+        self.ingresar_imagen.clicked.connect(pac.AsignarImagenes)
+        #self.conteo.clicked.connect(self.ConteoPart)
         self.salir.clicked.connect(self.close)
+class Agregar_pac(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        loadUi('agregar_pac.ui',self)
+        self.setup()
+
+    def setup(self):
+        self.agregar.clicked.connect(self.AgregarPac)
+
 
     def AgregarPac(self):
         name = self.nombre.text()
         id = self.id.text()
-        if not id or not name or not last_name or not age:
+        if not id or not name:
             msgBox = QMessageBox()
             msgBox.setIcon(QMessageBox.Warning)
             msgBox.setText("Debe ingresar todos los datos")
@@ -27,6 +42,15 @@ class VentanaPrincipal(QMainWindow):
             msgBox.setStandardButtons(QMessageBox.Ok)
             msgBox.exec()
         else:
-            pat = {'id':id, 'nombre':name, 'apellido': last_name, 'edad': age}
-            isUnique = self.controller.add_patient(pat)
+
+            pat = {'id':id, 'nombre':name}
+            #self.close()
+            msgBox = QMessageBox()
+            msgBox.setText("paciente agregado exitosamente")
+            msgBox.setWindowTitle(None)
+            msgBox.setStandardButtons(QMessageBox.Ok)
+            msgBox.exec()
             
+            #isUnique = self.controller.add_patient(pat)
+
+

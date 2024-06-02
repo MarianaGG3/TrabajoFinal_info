@@ -3,6 +3,8 @@ from PyQt5.QtGui import QDoubleValidator, QRegExpValidator,QIntValidator
 from PyQt5.QtCore import Qt,QRegExp
 from PyQt5.uic import loadUi
 
+
+
 class Imagen:
     def __init__(self):
         self.__numero_imagen=int
