@@ -15,11 +15,12 @@ class VentanaPrincipal(QMainWindow):
 
     def setup(self):
         pac= Paciente()
-        self.agg=Agregar_pac()
-        self.conteo=pac.ConteoPart()
+        im=Imagen()
+        self.agg=AgregarUsuario()
+        #self.conteo=im.ConteoPart()
         self.ingresar_pac.clicked.connect(self.agg.show)
-        self.ingresar_imagen.clicked.connect(pac.AsignarImagenes)
-        self.conteo.clicked.connect(self.conteo)
+        #self.ingresar_imagen.clicked.connect(im.AsignarImagenes)
+        #self.conteo.clicked.connect(self.conteo)
         self.salir.clicked.connect(self.close)
 
 
@@ -34,17 +35,17 @@ class ConteoPart(QDialog):
         pass
 
 
-class Agregar_pac(QDialog):
+class AgregarUsuario(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         loadUi('agregar_pac.ui',self)
         self.setup()
 
     def setup(self):
-        self.agregar.clicked.connect(self.AgregarPac)
+        self.agregar.clicked.connect(self.agregar_usuario)
 
 
-    def AgregarPac(self):
+    def agregar_usuario(self):
         name = self.nombre.text()
         id = self.id.text()
         if not id or not name:
