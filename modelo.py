@@ -26,8 +26,8 @@ class Imagen:
     def verUsuario(self):
         return self.__usuario
 
-    def ConteoPart(self):
-        nombre_imagen=input("ingrese el nombre de la imagen a realizar el conteo:")
+    def ConteoPart(self, nombre_imagen):
+        #nombre_imagen=input("ingrese el nombre de la imagen a realizar el conteo:")
         ima= cv2.imread(nombre_imagen)
         ima=cv2.cvtColor(ima, cv2.COLOR_BGR2RGB)
         imgB=ima[:,:,2]
@@ -39,7 +39,8 @@ class Imagen:
         imaOp=cv2.morphologyEx(R, cv2.MORPH_CLOSE, kernel, iterations = 1)
 
         elem,mask=cv2.connectedComponents(imaOp)
-        print(f'El número de nanoparticulas que se encuentran en la imagen es de:{elem-1}')
+        A = elem - 1
+        return A
 
 class Usuario:
     def __init__(self):

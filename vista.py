@@ -9,7 +9,7 @@ from PyQt5.uic import loadUi
 class VentanaPrincipal(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
-        loadUi('interfaz_menu.ui',self)
+        loadUi("interfaz_menu.ui",self)
         self.setup()
         
 
@@ -17,35 +17,50 @@ class VentanaPrincipal(QMainWindow):
         usu= Usuario()
         im=Imagen()
         self.agg=AgregarUsuario()
-        #self.conteo=im.ConteoPart()
+        #conteo_ = ConteoPart(self)
         self.ingresar.clicked.connect(self.agg.show)
         #self.ingresar_imagen.clicked.connect(im.AsignarImagenes)
-        #self.conteo.clicked.connect(self.conteo)
+        self.conteo.clicked.connect(self.abrir_conteo)
         self.salir.clicked.connect(self.close)
+
+    def abrir_conteo(self):
+        conteo_ = ConteoPart(self)
+        conteo_.show()
+
+    def close(self):
+        QApplication.quit()
+
 
 
 #No se ha creado
 class ConteoPart(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
-        loadUi('conteo.ui',self)
+        loadUi("conteo.ui",self)
         self.setup()
 
     def setup(self):
-        pass
+        self.Aceptar.clicked.connect(self.conteo)
+        self.Salir.clicked.connect(self.salir)
 
     def conteo(self):
+        ruta = self.ruta.text()
+        I = Imagen()
+        T = I.ConteoPart(ruta)
         msgBox = QMessageBox()
-        msgBox.setText("la imagen ingresada tiene: ")
+        msgBox.setText("la imagen ingresada tiene: {}" .format(T))
         msgBox.setWindowTitle("conteo")
         msgBox.setStandardButtons(QMessageBox.Ok)
         msgBox.exec()
+    
+    def salir(self):
+        self.hide()
 
 
 class AgregarUsuario(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
-        loadUi('agregar_pac.ui',self)
+        loadUi("agregar_pac.ui",self)
         self.setup()
 
     def setup(self):
@@ -53,9 +68,9 @@ class AgregarUsuario(QDialog):
 
 
     def agregar_usuario(self):
-        name = self.nombre.text()
-        id = self.id.text()
-        if not id or not name:
+        codigo = self.codigo.text()
+        ruta = self.ruta.text()
+        if not id or not codigo:
             msgBox = QMessageBox()
             msgBox.setIcon(QMessageBox.Warning)
             msgBox.setText("Debe ingresar todos los datos")
@@ -64,10 +79,10 @@ class AgregarUsuario(QDialog):
             msgBox.exec()
         else:
 
-            pat = {'id':id, 'nombre':name}
+            pat = {'ruta':ruta, 'nombre':codigo}
             #self.close()
             msgBox = QMessageBox()
-            msgBox.setText("paciente agregado exitosamente")
+            msgBox.setText("Datos agregados exitosamente")
             msgBox.setWindowTitle(None)
             msgBox.setStandardButtons(QMessageBox.Ok)
             msgBox.exec()
