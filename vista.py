@@ -57,6 +57,9 @@ class ConteoPart(QDialog):
         plt.imshow(img)
         plt.title('Imagen ingresada')
         plt.axis('off')
+
+        eficiencia = "Eficiente" if conteo > 100 else "No eficiente"
+        plt.figtext(0.5, 0.01, eficiencia, wrap=True, horizontalalignment='center', fontsize=12)
         plt.show()
 
 
@@ -106,6 +109,8 @@ class AgregarUsuario(QDialog):
         plt.imshow(img)
         plt.title(f'Imagen ingresada - Partículas: {conteo}')
         plt.axis('off')
+        ficiencia = "Eficiente" if conteo > 100 else "No eficiente"
+        plt.figtext(0.5, 0.01, eficiencia, wrap=True, horizontalalignment='center', fontsize=12)
         plt.show()
 
 
