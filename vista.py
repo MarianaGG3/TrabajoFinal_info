@@ -1,4 +1,5 @@
 from modelo import *
+from controlador import *
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QMessageBox,QLabel, QWidget, QLineEdit, QTableWidgetItem,QPushButton
 from PyQt5.QtGui import QDoubleValidator, QRegExpValidator,QIntValidator, QFont
@@ -14,7 +15,7 @@ class VentanaPrincipal(QMainWindow):
         
 
     def setup(self):
-        usu= Usuario()
+        usu= ImagenDato()
         im=Imagen()
         self.agg=AgregarUsuario()
         #conteo_ = ConteoPart(self)
@@ -61,16 +62,17 @@ class AgregarUsuario(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         loadUi("agregar_pac.ui",self)
+        self.controller= coordinador()
         self.setup()
 
     def setup(self):
         self.agregar.clicked.connect(self.agregar_usuario)
 
 
-    def agregar_usuario(self):
+    def agregar_img(self):
         codigo = self.codigo.text()
         ruta = self.ruta.text()
-        if not id or not codigo:
+        if not ruta or not codigo:
             msgBox = QMessageBox()
             msgBox.setIcon(QMessageBox.Warning)
             msgBox.setText("Debe ingresar todos los datos")
@@ -79,14 +81,15 @@ class AgregarUsuario(QDialog):
             msgBox.exec()
         else:
 
-            pat = {'ruta':ruta, 'nombre':codigo}
-            #self.close()
-            msgBox = QMessageBox()
-            msgBox.setText("Datos agregados exitosamente")
-            msgBox.setWindowTitle(None)
-            msgBox.setStandardButtons(QMessageBox.Ok)
-            msgBox.exec()
+            img = {'ruta':ruta, 'nombre':codigo}
+            isUnique = self.controller.add_img(img)
+            if isUnique:
+                msgBox = QMessageBox()
+                msgBox.setText("Datos agregados exitosamente")
+                msgBox.setWindowTitle(None)
+                msgBox.setStandardButtons(QMessageBox.Ok)
+                msgBox.exec()
+                
             
-            #isUnique = self.controller.add_patient(pat)
 
 
