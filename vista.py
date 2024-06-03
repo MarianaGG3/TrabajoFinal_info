@@ -80,8 +80,15 @@ class AgregarUsuario(QDialog):
             msgBox.setStandardButtons(QMessageBox.Ok)
             msgBox.exec()
         else:
+            I = Imagen()
+            T = I.ConteoPart(ruta)
+            msgBox = QMessageBox()
+            msgBox.setText("la imagen ingresada tiene: {}" .format(T))
+            msgBox.setWindowTitle("conteo")
+            msgBox.setStandardButtons(QMessageBox.Ok)
+            msgBox.exec()
 
-            img = {'Ruta':ruta, 'Codigo':codigo, 'Numero_nano':'','Eficiencia': ''}
+            img = {'Ruta':ruta, 'Codigo':codigo, 'Numero_nano': T,'Eficiencia': ''}
             isUnique = self.controller.add_img(img)
             if isUnique:
                 msgBox = QMessageBox()
@@ -89,14 +96,6 @@ class AgregarUsuario(QDialog):
                 msgBox.setWindowTitle(None)
                 msgBox.setStandardButtons(QMessageBox.Ok)
                 msgBox.exec()
-
-        I = Imagen()
-        T = I.ConteoPart(ruta)
-        msgBox = QMessageBox()
-        msgBox.setText("la imagen ingresada tiene: {}" .format(T))
-        msgBox.setWindowTitle("conteo")
-        msgBox.setStandardButtons(QMessageBox.Ok)
-        msgBox.exec()
                 
                 
             
