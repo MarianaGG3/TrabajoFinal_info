@@ -34,6 +34,13 @@ class ConteoPart(QDialog):
     def setup(self):
         pass
 
+    def conteo(self):
+        msgBox = QMessageBox()
+        msgBox.setText("la imagen ingresada tiene: ")
+        msgBox.setWindowTitle("conteo")
+        msgBox.setStandardButtons(QMessageBox.Ok)
+        msgBox.exec()
+
 
 class AgregarUsuario(QDialog):
     def __init__(self, parent=None):
