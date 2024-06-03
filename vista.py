@@ -11,14 +11,14 @@ class VentanaPrincipal(QMainWindow):
         super().__init__(parent)
         loadUi('interfaz_menu.ui',self)
         self.setup()
-        pac= Paciente()
+        
 
     def setup(self):
-        pac= Paciente()
+        usu= Usuario()
         im=Imagen()
         self.agg=AgregarUsuario()
         #self.conteo=im.ConteoPart()
-        self.ingresar_pac.clicked.connect(self.agg.show)
+        self.ingresar.clicked.connect(self.agg.show)
         #self.ingresar_imagen.clicked.connect(im.AsignarImagenes)
         #self.conteo.clicked.connect(self.conteo)
         self.salir.clicked.connect(self.close)

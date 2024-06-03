@@ -5,23 +5,22 @@ from PyQt5.uic import loadUi
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-import pydicom
 import matplotlib.pyplot as plt
 
 
 class Imagen:
     def __init__(self):
-        self.__numero_imagen=int
-        self.__usuario=""
+        self.__ruta=""
+        self.__usuario=int
 
 
-    def asignarNumeroImagen(self,i):
+    def asignarRuta(self,i):
         self.__numero_imagen=i
 
     def asignarUsuario(self, u):
         self.__usuario=u
 
-    def verNumeroImagen(self):
+    def verRuta(self):
         return self.__numero_imagen
 
     def verUsuario(self):
@@ -42,17 +41,14 @@ class Imagen:
         elem,mask=cv2.connectedComponents(imaOp)
         print(f'El número de nanoparticulas que se encuentran en la imagen es de:{elem-1}')
 
-class Paciente:
+class Usuario:
     def __init__(self):
-        self.__nombre="" 
-        self.__cedula=0 
+        self.__usuario=int
+        
         self.__imagenes = {} 
 
     def AsignarNombre(self,n):
         self.__nombre=n 
-
-    def AsignarCedula(self,c):
-        self.__cedula=c 
     
     def TieneImagenes(self,nombre):
         return nombre.lower() in self.__imagenes 
@@ -64,8 +60,7 @@ class Paciente:
     def VerNombre(self):
         return self.__nombre 
 
-    def VerCedula(self):
-        return self.__cedula 
+    
 
 
 
