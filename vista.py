@@ -31,11 +31,21 @@ class VentanaPrincipal(QMainWindow):
         conteo_ = ConteoPart(self)
         conteo_.show()
 
+    def mostrar_imagen(self, ruta):
+        img = mpimg.imread(ruta)
+        plt.imshow(img)
+        plt.title('Imagen ingresada')
+        plt.axis('off')
+
+        eficiencia = "Eficiente" if conteo > 100 else "No eficiente"
+        plt.figtext(0.5, 0.01, eficiencia, wrap=True, horizontalalignment='center', fontsize=12)
+        plt.show()
+
     def close(self):
         QApplication.quit()
 
 
-class ConteoPart(QDialog):
+class ConteoPart(VentanaPrincipal):
     def __init__(self, parent=None):
         super().__init__(parent)
         loadUi("conteo.ui",self)
@@ -52,15 +62,16 @@ class ConteoPart(QDialog):
         
         self.mostrar_imagen(ruta, T)
 
-    def mostrar_imagen(self, ruta):
-        img = mpimg.imread(ruta)
-        plt.imshow(img)
-        plt.title('Imagen ingresada')
-        plt.axis('off')
+    # def mostrar_imagen(self, ruta):
+    #     img = mpimg.imread(ruta)
+    #     plt.imshow(img)
+    #     plt.title('Imagen ingresada')
+    #     plt.axis('off')
 
-        eficiencia = "Eficiente" if conteo > 100 else "No eficiente"
-        plt.figtext(0.5, 0.01, eficiencia, wrap=True, horizontalalignment='center', fontsize=12)
-        plt.show()
+    #     eficiencia = "Eficiente" if conteo > 100 else "No eficiente"
+    #     plt.figtext(0.5, 0.01, eficiencia, wrap=True, horizontalalignment='center', fontsize=12)
+    #     plt.show()
+        
 
 
     
@@ -68,7 +79,7 @@ class ConteoPart(QDialog):
         self.hide()
 
 
-class AgregarUsuario(QDialog):
+class AgregarUsuario(VentanaPrincipal):
     def __init__(self, parent=None):
         super().__init__(parent)
         loadUi("agregar_pac.ui",self)
@@ -104,25 +115,18 @@ class AgregarUsuario(QDialog):
 
             self.mostrar_imagen(ruta, T)
 
-    def mostrar_imagen(self, ruta, conteo):
-        img = mpimg.imread(ruta)
-        plt.imshow(img)
-        plt.title(f'Imagen ingresada - Partículas: {conteo}')
-        plt.axis('off')
-        ficiencia = "Eficiente" if conteo > 100 else "No eficiente"
-        plt.figtext(0.5, 0.01, eficiencia, wrap=True, horizontalalignment='center', fontsize=12)
-        plt.show()
-
+    # def mostrar_imagen(self, ruta, conteo):
+    #     img = mpimg.imread(ruta)
+    #     plt.imshow(img)
+    #     plt.title(f'Imagen ingresada - Partículas: {conteo}')
+    #     plt.axis('off')
+    #     eficiencia = "Eficiente" if conteo > 100 else "No eficiente"
+    #     plt.figtext(0.5, 0.01, eficiencia, wrap=True, horizontalalignment='center', fontsize=12)
+    #     plt.show()
 
         I = Imagen()
         T = I.ConteoPart(ruta)
-        # msgBox = QMessageBox()
-        # msgBox.setText("la imagen ingresada tiene: {}" .format(T))
-        # msgBox.setWindowTitle("conteo")
-        # msgBox.setStandardButtons(QMessageBox.Ok)
-        # msgBox.exec()
-                
-                
+        
             
 
 
