@@ -35,8 +35,6 @@ class VentanaPrincipal(QMainWindow):
         QApplication.quit()
 
 
-
-#No se ha creado
 class ConteoPart(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -51,12 +49,8 @@ class ConteoPart(QDialog):
         ruta = self.ruta.text()
         I = Imagen()
         T = I.ConteoPart(ruta)
-        msgBox = QMessageBox()
-        msgBox.setText("la imagen ingresada tiene: {}" .format(T))
-        msgBox.setWindowTitle("conteo")
-        msgBox.setStandardButtons(QMessageBox.Ok)
-        msgBox.exec()
-        self.mostrar_imagen(ruta)
+        
+        self.mostrar_imagen(ruta, T)
 
     def mostrar_imagen(self, ruta):
         img = mpimg.imread(ruta)
@@ -95,13 +89,8 @@ class AgregarUsuario(QDialog):
         else:
             I = Imagen()
             T = I.ConteoPart(ruta)
-            msgBox = QMessageBox()
-            msgBox.setText("la imagen ingresada tiene: {}" .format(T))
-            msgBox.setWindowTitle("conteo")
-            msgBox.setStandardButtons(QMessageBox.Ok)
-            msgBox.exec()
 
-            img = {'Ruta':ruta, 'Codigo':codigo, 'Numero_nano': T,'Eficiencia': ''}
+            img = {'Ruta': ruta, 'Codigo': codigo, 'Numero_nano': T, 'Eficiencia': ''}
             isUnique = self.controller.add_img(img)
             if isUnique:
                 msgBox = QMessageBox()
@@ -110,23 +99,23 @@ class AgregarUsuario(QDialog):
                 msgBox.setStandardButtons(QMessageBox.Ok)
                 msgBox.exec()
 
-            self.mostrar_imagen(ruta)
+            self.mostrar_imagen(ruta, T)
 
-    def mostrar_imagen(self, ruta):
+    def mostrar_imagen(self, ruta, conteo):
         img = mpimg.imread(ruta)
         plt.imshow(img)
-        plt.title('Imagen ingresada')
+        plt.title(f'Imagen ingresada - Partículas: {conteo}')
         plt.axis('off')
         plt.show()
 
 
         I = Imagen()
         T = I.ConteoPart(ruta)
-        msgBox = QMessageBox()
-        msgBox.setText("la imagen ingresada tiene: {}" .format(T))
-        msgBox.setWindowTitle("conteo")
-        msgBox.setStandardButtons(QMessageBox.Ok)
-        msgBox.exec()
+        # msgBox = QMessageBox()
+        # msgBox.setText("la imagen ingresada tiene: {}" .format(T))
+        # msgBox.setWindowTitle("conteo")
+        # msgBox.setStandardButtons(QMessageBox.Ok)
+        # msgBox.exec()
                 
                 
             
