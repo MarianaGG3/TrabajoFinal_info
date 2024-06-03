@@ -5,6 +5,9 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QMessageBox,QLab
 from PyQt5.QtGui import QDoubleValidator, QRegExpValidator,QIntValidator, QFont
 from PyQt5.QtCore import Qt,QRegExp
 from PyQt5.uic import loadUi
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+
 
 
 class VentanaPrincipal(QMainWindow):
@@ -53,6 +56,16 @@ class ConteoPart(QDialog):
         msgBox.setWindowTitle("conteo")
         msgBox.setStandardButtons(QMessageBox.Ok)
         msgBox.exec()
+        self.mostrar_imagen(ruta)
+
+    def mostrar_imagen(self, ruta):
+        img = mpimg.imread(ruta)
+        plt.imshow(img)
+        plt.title('Imagen ingresada')
+        plt.axis('off')
+        plt.show()
+
+
     
     def salir(self):
         self.hide()
@@ -96,6 +109,16 @@ class AgregarUsuario(QDialog):
                 msgBox.setWindowTitle(None)
                 msgBox.setStandardButtons(QMessageBox.Ok)
                 msgBox.exec()
+
+            self.mostrar_imagen(ruta)
+
+    def mostrar_imagen(self, ruta):
+        img = mpimg.imread(ruta)
+        plt.imshow(img)
+        plt.title('Imagen ingresada')
+        plt.axis('off')
+        plt.show()
+
 
         I = Imagen()
         T = I.ConteoPart(ruta)
