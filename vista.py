@@ -24,7 +24,7 @@ class VentanaPrincipal(QMainWindow):
         self.salir.clicked.connect(self.close)
 
 
-#No se ha cread
+#No se ha creado
 class ConteoPart(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
