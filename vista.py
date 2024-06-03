@@ -89,6 +89,14 @@ class AgregarUsuario(QDialog):
                 msgBox.setWindowTitle(None)
                 msgBox.setStandardButtons(QMessageBox.Ok)
                 msgBox.exec()
+
+        I = Imagen()
+        T = I.ConteoPart(ruta)
+        msgBox = QMessageBox()
+        msgBox.setText("la imagen ingresada tiene: {}" .format(T))
+        msgBox.setWindowTitle("conteo")
+        msgBox.setStandardButtons(QMessageBox.Ok)
+        msgBox.exec()
                 
                 
             
