@@ -1,5 +1,5 @@
 from modelo import *
-from controlador import *
+from controlador import coordinador
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QDialog, QMessageBox,QLabel, QWidget, QLineEdit, QTableWidgetItem,QPushButton
 from PyQt5.QtGui import QDoubleValidator, QRegExpValidator,QIntValidator, QFont
@@ -66,7 +66,7 @@ class AgregarUsuario(QDialog):
         self.setup()
 
     def setup(self):
-        self.agregar.clicked.connect(self.agregar_usuario)
+        self.agregar.clicked.connect(self.agregar_img)
 
 
     def agregar_img(self):
@@ -81,7 +81,7 @@ class AgregarUsuario(QDialog):
             msgBox.exec()
         else:
 
-            img = {'ruta':ruta, 'nombre':codigo}
+            img = {'Ruta':ruta, 'Codigo':codigo, 'Numero_nano':'','Eficiencia': ''}
             isUnique = self.controller.add_img(img)
             if isUnique:
                 msgBox = QMessageBox()
@@ -89,6 +89,7 @@ class AgregarUsuario(QDialog):
                 msgBox.setWindowTitle(None)
                 msgBox.setStandardButtons(QMessageBox.Ok)
                 msgBox.exec()
+                
                 
             
 

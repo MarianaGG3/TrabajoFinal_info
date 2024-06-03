@@ -87,9 +87,9 @@ class ImagenDato:
             self.cursor.close()
             self.connection.close()
 
-    def agrgar_imagen(self,imagen:dict):
+    def agregar_imagen(self,imagen:dict):
         if not self.buscar_imagen(imagen['Codigo']):
-            query = "INSERT INTO imagen (Codigo, Ruta, Numero_nano, Eficiencia) VALUES (%s, %s, %s, %s)"
+            query = "INSERT INTO imagenes (Codigo, Ruta, Numero_nano, Eficiencia) VALUES (%s, %s, %s, %s)"
             values = (imagen['Codigo'], imagen['Ruta'], imagen['Numero_nano'], imagen['Eficiencia'])
             self.cursor.execute(query, values)
             self.connection.commit()
@@ -98,13 +98,13 @@ class ImagenDato:
         
 
     def eliminar_imagen(self, imagen_codigo: str):
-        query = "DELETE FROM pacientes WHERE Codigo = %s"
+        query = "DELETE FROM imagenes WHERE Codigo = %s"
         self.cursor.execute(query, (imagen_codigo,))
         self.connection.commit()
         return self.cursor.rowcount
     
     def buscar_imagen(self, imagen_codigo= str):
-        query = "SELECT * FROM pacientes WHERE Codigo = %s"
+        query = "SELECT * FROM imagenes WHERE Codigo = %s"
         self.cursor.execute(query, (imagen_codigo,))
         return self.cursor.fetchone()
 
