@@ -4,7 +4,8 @@ from PyQt5.QtCore import Qt,QRegExp
 from PyQt5.uic import loadUi
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
+import mysql.connector
+from mysql.connector import Error
 import matplotlib.pyplot as plt
 
 
@@ -42,24 +43,73 @@ class Imagen:
         A = elem - 1
         return A
 
-class Usuario:
-    def __init__(self):
-        self.__usuario=int
+class ImagenDato:
+    def __init__(self, host='localhost', database='final_infoII', user='root', password=''):
+        self.host = host
+        self.database = database
+        self.user = user
+        self.password = password
+        self.conectar_db()
+        self.crear_tabla_imagen()
+
+    def conectar_db(self):
+        try:
+            self.connection = mysql.connector.connect(
+                host=self.host,
+                database=self.database,
+                user=self.user,
+                password=self.password
+            )
+            if self.connection.is_connected():
+                self.cursor = self.connection.cursor(dictionary=True)
+                print("Conexión exitosa a la base de datos")
+        except Error as e:
+            print(f"Error al conectar a la base de datos: {e}")
+            self.connection = None
+
+    def crear_tabla_imagen(self):
+        create_table_query = """
+        CREATE TABLE IF NOT EXISTS imagenes (
+            Codigo VARCHAR(255) PRIMARY KEY,
+            Ruta VARCHAR(255),
+            Numero_nano VARCHAR(255),
+            Eficiencia VARCHAR(255)
+        );
+        """
+        try:
+            self.cursor.execute(create_table_query)
+            self.connection.commit()
+        except Error as e:
+            print(f"Error al crear la tabla: {e}")
+    
+    def cerrar_db(self):
+        if self.connection.is_connected():
+            self.cursor.close()
+            self.connection.close()
+
+    def agrgar_imagen(self,imagen:dict):
+        if not self.buscar_imagen(imagen['Codigo']):
+            query = "INSERT INTO imagen (Codigo, Ruta, Numero_nano, Eficiencia) VALUES (%s, %s, %s, %s)"
+            values = (imagen['Codigo'], imagen['Ruta'], imagen['Numero_nano'], imagen['Eficiencia'])
+            self.cursor.execute(query, values)
+            self.connection.commit()
+            return True
+        return False
         
-        self.__imagenes = {} 
 
-    def AsignarNombre(self,n):
-        self.__nombre=n 
+    def eliminar_imagen(self, imagen_codigo: str):
+        query = "DELETE FROM pacientes WHERE Codigo = %s"
+        self.cursor.execute(query, (imagen_codigo,))
+        self.connection.commit()
+        return self.cursor.rowcount
     
-    def TieneImagenes(self,nombre):
-        return nombre.lower() in self.__imagenes 
-  
-    
-    def AsignarImagenes(self,i):
-        self.__imagenes[i.VerNombre().lower()] = i
+    def buscar_imagen(self, imagen_codigo= str):
+        query = "SELECT * FROM pacientes WHERE Codigo = %s"
+        self.cursor.execute(query, (imagen_codigo,))
+        return self.cursor.fetchone()
 
-    def VerNombre(self):
-        return self.__nombre 
+
+        
 
     
 
