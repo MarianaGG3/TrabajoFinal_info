@@ -32,6 +32,7 @@ class VentanaPrincipal(QMainWindow):
         conteo_.show()
 
     def mostrar_imagen(self, ruta):
+        
         img = mpimg.imread(ruta)
         plt.imshow(img)
         plt.title('Imagen ingresada')
