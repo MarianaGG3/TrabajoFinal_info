@@ -104,8 +104,9 @@ class AgregarUsuario(QDialog):
         else:
             I = Imagen()
             T = I.ConteoPart(ruta)
+            eficiencia = "Eficiente" if T > 100 else "No eficiente"
 
-            img = {'Ruta': ruta, 'Codigo': codigo, 'Numero_nano': T, 'Eficiencia': ''}
+            img = {'Ruta': ruta, 'Codigo': codigo, 'Numero_nano': T, 'Eficiencia': eficiencia}
             isUnique = self.controller.add_img(img)
             if isUnique:
                 msgBox = QMessageBox()
