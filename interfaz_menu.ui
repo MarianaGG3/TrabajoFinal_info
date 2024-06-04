@@ -42,23 +42,16 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="conteo">
-      <property name="text">
-       <string>2. Realizar conteo de nanoparticulas</string>
-      </property>
-     </widget>
-    </item>
-    <item>
      <widget class="QPushButton" name="imag">
       <property name="text">
-       <string>3. Mostrar imagenes almacenadas</string>
+       <string>2. Mostrar imagenes almacenadas</string>
       </property>
      </widget>
     </item>
     <item>
      <widget class="QPushButton" name="salir">
       <property name="text">
-       <string>4. Salir</string>
+       <string>3. Salir</string>
       </property>
      </widget>
     </item>
@@ -70,7 +63,7 @@
      <x>0</x>
      <y>0</y>
      <width>516</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

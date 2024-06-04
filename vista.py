@@ -21,10 +21,8 @@ class VentanaPrincipal(QMainWindow):
         usu= ImagenDato()
         self.im=Mostrar_info()
         self.agg=AgregarUsuario()
-        #conteo_ = ConteoPart(self)
         self.ingresar.clicked.connect(self.agg.show)
         self.imag.clicked.connect(self.im.show)
-        self.conteo.clicked.connect(self.abrir_conteo)
         self.salir.clicked.connect(self.close)
 
     def abrir_conteo(self):
@@ -37,10 +35,6 @@ class VentanaPrincipal(QMainWindow):
         plt.imshow(img)
         plt.title('Imagen ingresada')
         plt.axis('off')
-
-    #     eficiencia = "Eficiente" if conteo > 100 else "No eficiente"
-    #     plt.figtext(0.5, 0.01, eficiencia, wrap=True, horizontalalignment='center', fontsize=12)
-    #     plt.show()
 
     def close(self):
         QApplication.quit()
@@ -118,8 +112,6 @@ class AgregarUsuario(QDialog):
 
             self.mostrar_imagen(ruta, T)
                 
-            
-
 
     def mostrar_imagen(self, ruta, conteo):
         img = mpimg.imread(ruta)
