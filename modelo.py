@@ -104,9 +104,19 @@ class ImagenDato:
         return self.cursor.rowcount
     
     def buscar_imagen(self, imagen_codigo= str):
-        query = "SELECT * FROM imagenes WHERE Codigo = %s"
-        self.cursor.execute(query, (imagen_codigo,))
-        return self.cursor.fetchall()
+        try:
+            if imagen_codigo:
+                query = "SELECT * FROM imagenes WHERE Codigo = %s"
+                self.cursor.execute(query, (imagen_codigo,))
+            else:
+                query = "SELECT * FROM imagenes"
+                self.cursor.execute(query)
+            result = self.cursor.fetchall()
+            print(f"Imágenes encontradas: {result}")
+            return result
+        except Error as e:
+            print(f"Error al buscar imagen: {e}")
+            return []
 
 
         

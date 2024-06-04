@@ -173,11 +173,11 @@ class Mostrar_info(QDialog):
             self.tabla.setCellWidget(row, 5, btn2)
                 
         self.tabla.setColumnWidth(0, 60)
-        self.tabla.setColumnWidth(1, 110)
+        self.tabla.setColumnWidth(1, 260)
         self.tabla.setColumnWidth(2, 120)
-        self.tabla.setColumnWidth(3, 60)
-        self.tabla.setColumnWidth(4, 60)
-        self.tabla.setColumnWidth(5, 60)
+        self.tabla.setColumnWidth(3, 160)
+        self.tabla.setColumnWidth(4, 70)
+        self.tabla.setColumnWidth(5, 70)
 
     def Eliminar(self, row):
         cod = self.tabla.item(row, 0).text()
