@@ -31,21 +31,21 @@ class VentanaPrincipal(QMainWindow):
         conteo_ = ConteoPart(self)
         conteo_.show()
 
-    def mostrar_imagen(self, ruta):
-        img = mpimg.imread(ruta)
-        plt.imshow(img)
-        plt.title('Imagen ingresada')
-        plt.axis('off')
+    # def mostrar_imagen(self, ruta):
+    #     img = mpimg.imread(ruta)
+    #     plt.imshow(img)
+    #     plt.title('Imagen ingresada')
+    #     plt.axis('off')
 
-        eficiencia = "Eficiente" if conteo > 100 else "No eficiente"
-        plt.figtext(0.5, 0.01, eficiencia, wrap=True, horizontalalignment='center', fontsize=12)
-        plt.show()
+    #     eficiencia = "Eficiente" if conteo > 100 else "No eficiente"
+    #     plt.figtext(0.5, 0.01, eficiencia, wrap=True, horizontalalignment='center', fontsize=12)
+    #     plt.show()
 
     def close(self):
         QApplication.quit()
 
 
-class ConteoPart(VentanaPrincipal):
+class ConteoPart(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         loadUi("conteo.ui",self)
@@ -62,15 +62,15 @@ class ConteoPart(VentanaPrincipal):
         
         self.mostrar_imagen(ruta, T)
 
-    # def mostrar_imagen(self, ruta):
-    #     img = mpimg.imread(ruta)
-    #     plt.imshow(img)
-    #     plt.title('Imagen ingresada')
-    #     plt.axis('off')
+    def mostrar_imagen(self, ruta):
+        img = mpimg.imread(ruta)
+        plt.imshow(img)
+        plt.title('Imagen ingresada')
+        plt.axis('off')
 
-    #     eficiencia = "Eficiente" if conteo > 100 else "No eficiente"
-    #     plt.figtext(0.5, 0.01, eficiencia, wrap=True, horizontalalignment='center', fontsize=12)
-    #     plt.show()
+        eficiencia = "Eficiente" if conteo > 100 else "No eficiente"
+        plt.figtext(0.5, 0.01, eficiencia, wrap=True, horizontalalignment='center', fontsize=12)
+        plt.show()
         
 
 
@@ -79,7 +79,7 @@ class ConteoPart(VentanaPrincipal):
         self.hide()
 
 
-class AgregarUsuario(VentanaPrincipal):
+class AgregarUsuario(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         loadUi("agregar_pac.ui",self)
@@ -115,14 +115,14 @@ class AgregarUsuario(VentanaPrincipal):
 
             self.mostrar_imagen(ruta, T)
 
-    # def mostrar_imagen(self, ruta, conteo):
-    #     img = mpimg.imread(ruta)
-    #     plt.imshow(img)
-    #     plt.title(f'Imagen ingresada - Partículas: {conteo}')
-    #     plt.axis('off')
-    #     eficiencia = "Eficiente" if conteo > 100 else "No eficiente"
-    #     plt.figtext(0.5, 0.01, eficiencia, wrap=True, horizontalalignment='center', fontsize=12)
-    #     plt.show()
+    def mostrar_imagen(self, ruta, conteo):
+        img = mpimg.imread(ruta)
+        plt.imshow(img)
+        plt.title(f'Imagen ingresada - Partículas: {conteo}')
+        plt.axis('off')
+        eficiencia = "Eficiente" if conteo > 100 else "No eficiente"
+        plt.figtext(0.5, 0.01, eficiencia, wrap=True, horizontalalignment='center', fontsize=12)
+        plt.show()
 
         I = Imagen()
         T = I.ConteoPart(ruta)
