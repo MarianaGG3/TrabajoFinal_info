@@ -112,10 +112,9 @@ class ImagenDato:
                 query = "SELECT * FROM imagenes"
                 self.cursor.execute(query)
             result = self.cursor.fetchall()
-            print(f"Imágenes encontradas: {result}")
             return result
+        
         except Error as e:
-            print(f"Error al buscar imagen: {e}")
             return []
 
 
