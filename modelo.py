@@ -106,7 +106,7 @@ class ImagenDato:
     def buscar_imagen(self, imagen_codigo= str):
         query = "SELECT * FROM imagenes WHERE Codigo = %s"
         self.cursor.execute(query, (imagen_codigo,))
-        return self.cursor.fetchone()
+        return self.cursor.fetchall()
 
 
         

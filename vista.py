@@ -19,11 +19,11 @@ class VentanaPrincipal(QMainWindow):
 
     def setup(self):
         usu= ImagenDato()
-        im=Imagen()
+        self.im=Mostrar_info()
         self.agg=AgregarUsuario()
         #conteo_ = ConteoPart(self)
         self.ingresar.clicked.connect(self.agg.show)
-        #self.ingresar_imagen.clicked.connect(im.AsignarImagenes)
+        self.imag.clicked.connect(self.im.show)
         self.conteo.clicked.connect(self.abrir_conteo)
         self.salir.clicked.connect(self.close)
 
@@ -85,6 +85,7 @@ class AgregarUsuario(QDialog):
         super().__init__(parent)
         loadUi("agregar_pac.ui",self)
         self.controller= coordinador()
+        self.tabla= Mostrar_info()
         self.setup()
 
     def setup(self):
@@ -116,6 +117,9 @@ class AgregarUsuario(QDialog):
                 msgBox.exec()
 
             self.mostrar_imagen(ruta, T)
+                
+            
+
 
     def mostrar_imagen(self, ruta, conteo):
         img = mpimg.imread(ruta)
@@ -128,7 +132,70 @@ class AgregarUsuario(QDialog):
 
         I = Imagen()
         T = I.ConteoPart(ruta)
-        
+class Mostrar_info(QDialog):
+    def __init__(self):
+        super().__init__()
+        loadUi('ventana_datos.ui', self)
+        self.controller = coordinador()
+        self.setup()
+
+    def setup(self):
+        self.busqueda.clicked.connect(self.buscar_imagen)
+        self.tabla.verticalHeader().setVisible(False)
+        self.readimagen()
+        self.tableUpdate()
+
+    def readimagen(self):
+        self.listimagen = self.controller.search_img()
+
+    def buscar_imagen(self):
+        buscar = self.buscar.text()
+        self.listimagen = self.controller.search_img(buscar)
+        self.tableUpdate()
+
+    def tableUpdate(self):
+        self.tabla.setRowCount(len(self.listimagen))
+        self.tabla.setColumnCount(6)
+        columnas = ["Codigo", "Ruta", "Numero_nano", "Eficiencia", "Eliminar", "Ver"]
+        columnLayout = ['Codigo', 'Ruta', 'Numero_nano', 'Eficiencia']
+        self.tabla.setHorizontalHeaderLabels(columnas)
+        for row, Imagen in enumerate(self.listimagen):
+            for column in range(4):
+                item = QTableWidgetItem(str(Imagen[columnLayout[column]]))
+                self.tabla.setItem(row, column, item)
+            
+            btn = QPushButton('Borrar', self)
+            btn.clicked.connect(lambda ch, r=row: self.Eliminar(r))
+            self.tabla.setCellWidget(row, 4, btn)
+
+            btn2 = QPushButton('visualizar', self)
+            btn2.clicked.connect(lambda ch, r=row: self.Ver(r))
+            self.tabla.setCellWidget(row, 5, btn2)
+                
+        self.tabla.setColumnWidth(0, 60)
+        self.tabla.setColumnWidth(1, 110)
+        self.tabla.setColumnWidth(2, 120)
+        self.tabla.setColumnWidth(3, 60)
+        self.tabla.setColumnWidth(4, 60)
+        self.tabla.setColumnWidth(5, 60)
+
+    def Eliminar(self, row):
+        cod = self.tabla.item(row, 0).text()
+        deleted = self.controller.del_img(cod)
+        if deleted:
+            self.readimagen()
+            self.tableUpdate()
+    def Ver(self,row):
+        ruta= self.tabla.item(row,1).text()
+        self.mostrar_imagen(ruta)
+
+    def mostrar_imagen(self, ruta):
+        img = mpimg.imread(ruta)
+        plt.imshow(img)
+        plt.title('Imagen ingresada')
+        plt.axis('off')
+        plt.show()
+    
             
 
 

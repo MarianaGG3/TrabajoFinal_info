@@ -14,7 +14,7 @@ class coordinador:
         return self.database.eliminar_imagen(img_cod)
 
     def search_img(self, img_cod: str = ''):
-        return self.database.buscar_paciente(img_cod)
+        return self.database.buscar_imagen(img_cod)
 
 
 
